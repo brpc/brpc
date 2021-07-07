@@ -16,8 +16,8 @@
 // under the License.
 
 
-#ifndef BRPC_SERIALIZED_REQUEST_H
-#define BRPC_SERIALIZED_REQUEST_H
+#ifndef BRPC_SERIALIZED_RESPONSE_H
+#define BRPC_SERIALIZED_RESPONSE_H
 
 #include <google/protobuf/message.h>
 #include "butil/iobuf.h"
@@ -25,27 +25,27 @@
 
 namespace brpc {
 
-class SerializedRequest : public ::google::protobuf::Message {
+class SerializedResponse : public ::google::protobuf::Message {
 public:
-    SerializedRequest();
-    virtual ~SerializedRequest();
+    SerializedResponse();
+    virtual ~SerializedResponse();
   
-    SerializedRequest(const SerializedRequest& from);
+    SerializedResponse(const SerializedResponse& from);
   
-    inline SerializedRequest& operator=(const SerializedRequest& from) {
+    inline SerializedResponse& operator=(const SerializedResponse& from) {
         CopyFrom(from);
         return *this;
     }
   
     static const ::google::protobuf::Descriptor* descriptor();
   
-    void Swap(SerializedRequest* other);
+    void Swap(SerializedResponse* other);
   
     // implements Message ----------------------------------------------
   
-    SerializedRequest* New() const;
+    SerializedResponse* New() const;
     void CopyFrom(const ::google::protobuf::Message& from);
-    void CopyFrom(const SerializedRequest& from);
+    void CopyFrom(const SerializedResponse& from);
     void Clear();
     bool IsInitialized() const;
     int ByteSize() const;
@@ -64,7 +64,7 @@ private:
     ::google::protobuf::uint8* SerializeWithCachedSizesToArray(
         ::google::protobuf::uint8* output) const;
     void MergeFrom(const ::google::protobuf::Message& from);
-    void MergeFrom(const SerializedRequest& from);
+    void MergeFrom(const SerializedResponse& from);
     void SharedCtor();
     void SharedDtor();
     void SetCachedSize(int size) const;
@@ -75,4 +75,4 @@ private:
 
 } // namespace brpc
 
-#endif  // BRPC_SERIALIZED_REQUEST_H
+#endif  // BRPC_SERIALIZED_RESPONSE_H
