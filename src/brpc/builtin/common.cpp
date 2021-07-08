@@ -25,6 +25,7 @@
 #include "butil/file_util.h"                 // butil::FilePath
 #include "butil/third_party/murmurhash3/murmurhash3.h"
 #include "butil/process_util.h"              // ReadCommandLine
+#include "butil/strings/string_util.h"       // butil::strlcpy
 #include "brpc/server.h"
 #include "brpc/builtin/common.h"
 
@@ -331,11 +332,11 @@ int FileChecksum(const char* file_path, unsigned char* checksum) {
 
 static pthread_once_t create_program_name_once = PTHREAD_ONCE_INIT;
 static const char* s_program_name = "unknown";
-static char s_cmdline[256];
+static char s_cmdline[4096];
 static void CreateProgramName() {
-    const ssize_t nr = butil::ReadCommandLine(s_cmdline, sizeof(s_cmdline) - 1, false);
-    if (nr > 0) {
-        s_cmdline[nr] = '\0';
+    std::string cmdline = butil::ReadCommandLine(false);
+    if (!cmdline.empty()) {
+        butil::strlcpy(s_cmdline, cmdline.c_str(), cmdline.size());
         s_program_name = s_cmdline;
     }
 }

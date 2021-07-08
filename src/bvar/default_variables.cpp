@@ -592,9 +592,7 @@ public:
 struct ReadSelfCmdline {
     std::string content;
     ReadSelfCmdline() {
-        char buf[1024];
-        const ssize_t nr = butil::ReadCommandLine(buf, sizeof(buf), true);
-        content.append(buf, nr);
+        content = butil::ReadCommandLine(true);
     }
 };
 static void get_cmdline(std::ostream& os, void*) {
